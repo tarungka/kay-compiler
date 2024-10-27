@@ -1,13 +1,8 @@
+#!/usr/bin/python3
+import sys
+import os
 from tokenizer import Tokenizer
 from parser import Parser
-
-# code = """
-# val x = 3
-
-# if a = 3 {
-#     print(a)
-# }
-# """
 
 code = """
 val x = 3
@@ -38,15 +33,29 @@ regex_tokens = [
 
 
 if __name__ == "__main__":
-    tkz = Tokenizer(regex_tokens)
-    code_tokens = tkz.tokenize(code)
 
-    parser = Parser(code_tokens)
-    errors = parser.parse()
+    if len(sys.argv) == 1:
+        print("Usage: main.py code.kay out_file.out")
+        exit(0)
 
-    if (len(errors) > 0):
-        print(errors)
-        exit(1)
+    src_code_f_name = sys.argv[1]
+    src_code_exec_f_name = "main.out"
+    try:
+        src_code_exec_f_name = sys.argv[2]
+    except IndexError:
+        pass
+    with open(src_code_f_name) as f:
 
+        code = f.read()
+        print(f"The code is: {code}")
+        tkz = Tokenizer(regex_tokens)
+        code_tokens = tkz.tokenize(code)
 
+        parser = Parser(code_tokens)
+        errors = parser.parse()
 
+        if (len(errors) > 0):
+            print(errors)
+            exit(1)
+
+        print("The code is good :)")

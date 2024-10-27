@@ -21,12 +21,12 @@ class Parser:
         it does not increment the iterator
         """
         token = self.pick()
-        print(f"expecting {types} analyzing {token.type}")
+        # print(f"expecting {types} analyzing {token.type}")
         if token and token.type in types:
             self.current += 1
-            print("VALID!")
+            # print("VALID!")
             return token
-        print("ERR - INVALID!")
+        # print("ERR - INVALID!")
         self.errors.append(self.err.error(token))
         return None
 
@@ -35,9 +35,9 @@ class Parser:
         DECL : val NAME = NUMBER
         """
         start_token = self.pick()
-        print(f"Start token: {start_token}")
+        # print(f"Start token: {start_token}")
         if not start_token or start_token.type != 'VAL':
-            print("Not a start token")
+            # print("Not a start token")
             return False
 
         saved_pos = self.current
@@ -66,7 +66,7 @@ class Parser:
 
     def validate_if(self):
         start_token = self.pick() # very first token is the start token
-        print(f"Start token: {start_token}")
+        # print(f"Start token: {start_token}")
         if not start_token or start_token.type != "IF":
             return False
 
@@ -114,3 +114,4 @@ class Parser:
                     self.validate_fn()
                 ):
                 return self.errors
+        return self.errors
