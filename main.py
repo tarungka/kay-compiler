@@ -179,6 +179,8 @@ code = """
 val x = 3
 
 if x > 3 {
+    val b = 10
+    somefn(b)
     print(a)
 }
 """
