@@ -1,5 +1,6 @@
 from errors import Errors
 from tokenizer import Token
+from kast import *
 
 class Parser:
 

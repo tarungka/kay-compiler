@@ -2,7 +2,8 @@
 import sys
 import os
 from tokenizer import Tokenizer
-from parser import Parser
+from parsera import Parser, print_ast, ProgramNode
+# from parser import Parser
 
 code = """
 val x = 3
@@ -52,10 +53,15 @@ if __name__ == "__main__":
         code_tokens = tkz.tokenize(code)
 
         parser = Parser(code_tokens)
-        errors = parser.parse()
+        ast = parser.parse()
 
-        if (len(errors) > 0):
-            print(errors)
-            exit(1)
+        # if (len(errors) > 0):
+        #     print(errors)
+        #     exit(1)
 
         print("The code is good :)")
+
+        if isinstance(ast, ProgramNode):
+            print_ast(ast)
+        else:
+            print("Parsing errors:", ast)
