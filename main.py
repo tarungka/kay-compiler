@@ -2,8 +2,9 @@
 import sys
 import os
 from tokenizer import Tokenizer
-from parsera import Parser, print_ast, ProgramNode
-# from parser import Parser
+# from parsera import Parser, print_ast, ProgramNode
+from parser import Parser, print_ast
+from kast import ProgramNode
 
 code = """
 val x = 3
@@ -55,13 +56,8 @@ if __name__ == "__main__":
         parser = Parser(code_tokens)
         ast = parser.parse()
 
-        # if (len(errors) > 0):
-        #     print(errors)
-        #     exit(1)
-
-        print("The code is good :)")
-
         if isinstance(ast, ProgramNode):
+            print("The code is good :)")
             print_ast(ast)
         else:
             print("Parsing errors:", ast)

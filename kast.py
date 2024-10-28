@@ -28,10 +28,16 @@ class ConditionNode(ASTNode):
 @dataclass
 class FunctionCallNode(ASTNode):
     name: str
+    # making an assumption that the function can only take one argument
     parameter: NameNode | NumberNode # print(a); print(1)
 
 @dataclass
 class ProgramNode(ASTNode):
     """Root node holding all the statements"""
     statements: List[ASTNode]
+
+@dataclass
+class IfNode(ASTNode):
+    condition: ConditionNode
+    body: List[ASTNode]
 
