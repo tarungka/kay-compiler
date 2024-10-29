@@ -5,6 +5,7 @@ from tokenizer import Tokenizer
 # from parsera import Parser, print_ast, ProgramNode
 from parser import Parser, print_ast
 from kast import ProgramNode
+from elf import ELFGenerator
 
 regex_tokens = [
     ("IF", r'if'),
@@ -51,3 +52,10 @@ if __name__ == "__main__":
             print_ast(ast)
         else:
             print("Parsing errors:", ast)
+            exit(0)
+
+        elf_generator = ELFGenerator(ast)
+        assembly_code = elf_generator.generate_assembly()
+        elf_generator.assemble(assembly=assembly_code, output_file="main.s")
+        elf_generator.link(["main.s"], "main.ld")
+        elf_generator.generate_executable("main.out")
